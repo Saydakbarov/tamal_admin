@@ -46,7 +46,7 @@ export default function AddSubCategory1() {
 
   const [cetegoryData, setCategoryData] = useState([]);
 
-  const [selectId, setSelectId] = useState();
+  const [selectId, setSelectId] = useState(1);
 
   console.log(selectId);
 
@@ -79,9 +79,10 @@ export default function AddSubCategory1() {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => console.log(data), handleClose())
       .catch((e) => console.log(e));
   };
+
   return (
     <Box sx={{ marginLeft: "0 auto", width: "100%", mt: 3 }}>
       <Button variant="contained" onClick={handleOpen}>

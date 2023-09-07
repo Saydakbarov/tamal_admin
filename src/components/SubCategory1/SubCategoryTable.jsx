@@ -52,12 +52,15 @@ export default function SubCategoryTable1() {
       .catch((e) => console.log(e));
   }, []);
 
+  console.log(subCategoryData1);
+
   return (
     <Box sx={{ p: 3 }}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
+              <StyledTableCell align="center">Category Title</StyledTableCell>
               <StyledTableCell align="center">English</StyledTableCell>
               <StyledTableCell align="center">Russian</StyledTableCell>
               <StyledTableCell align="center">Uzbek</StyledTableCell>
@@ -65,8 +68,11 @@ export default function SubCategoryTable1() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {subCategoryData1.map((row, i) => (
+            {subCategoryData1?.map((row, i) => (
               <StyledTableRow key={row.sub_category_id}>
+                <StyledTableCell align="center">
+                  {row.category_name_ru}
+                </StyledTableCell>
                 <StyledTableCell align="center">
                   {row.sub_category_name_en}
                 </StyledTableCell>

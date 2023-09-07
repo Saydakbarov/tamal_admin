@@ -67,7 +67,7 @@ export default function SubCategoryTable3() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {subCategoryData3.map((row, i) => (
+            {subCategoryData3?git.map((row, i) => (
               <StyledTableRow key={row.second_sub_category_id}>
                 <StyledTableCell align="center">
                   {row.third_sub_category_name_en}

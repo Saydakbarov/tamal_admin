@@ -38,7 +38,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function SubCategoryTable2() {
-  const [subCategoryData1, setSubCategoryData1] = useState([]);
+  const [subCategoryData2, setSubCategoryData2] = useState([]);
 
   const [updateCategory, setUpdateCategory] = useState([]);
 
@@ -48,9 +48,11 @@ export default function SubCategoryTable2() {
       headers: {},
     })
       .then((res) => res.json())
-      .then((data) => setSubCategoryData1(data.data))
+      .then((data) => setSubCategoryData2(data.data))
       .catch((e) => console.log(e));
   }, []);
+
+  console.log(subCategoryData2);
 
   return (
     <Box sx={{ p: 3 }}>
@@ -58,6 +60,9 @@ export default function SubCategoryTable2() {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
+              <StyledTableCell align="center">
+                Sub Category Title
+              </StyledTableCell>
               <StyledTableCell align="center">English</StyledTableCell>
               <StyledTableCell align="center">Russian</StyledTableCell>
               <StyledTableCell align="center">Uzbek</StyledTableCell>
@@ -65,8 +70,11 @@ export default function SubCategoryTable2() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {subCategoryData1.map((row, i) => (
+            {subCategoryData2?.map((row, i) => (
               <StyledTableRow key={row.second_sub_category_id}>
+                <StyledTableCell align="center">
+                  {row.sub_category_name_ru}
+                </StyledTableCell>
                 <StyledTableCell align="center">
                   {row.second_sub_category_name_en}
                 </StyledTableCell>
