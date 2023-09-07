@@ -44,7 +44,7 @@ export default function SubCategoryTable1() {
 
 	useEffect(() => {
 		fetch(
-			'https://tamal.onrender.com/api/v1/subcategories?limit=20?offset=' +
+			'https://tamal.onrender.com/api/v1/subcategories?limit=20&offset=' +
 				offset,
 			{
 				method: 'GET',
@@ -69,7 +69,7 @@ export default function SubCategoryTable1() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{subCategoryData1.map((row, i) => (
+						{subCategoryData1?.map((row, i) => (
 							<StyledTableRow key={row.sub_category_id}>
 								<StyledTableCell align='center'>
 									{row.sub_category_name_en}
@@ -107,7 +107,7 @@ export default function SubCategoryTable1() {
 				<button
 					className='next_btn add__btn'
 					onClick={() => setOffset(Number(offset) + 50)}
-					disabled={subCategoryData1.length >= 50 ? false : true}>
+					disabled={subCategoryData1?.length >= 50 ? false : true}>
 					Next
 				</button>
 			</div>

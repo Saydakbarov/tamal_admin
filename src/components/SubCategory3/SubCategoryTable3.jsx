@@ -71,7 +71,7 @@ export default function SubCategoryTable3() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{subCategoryData3.map((row, i) => (
+						{subCategoryData3?.map((row, i) => (
 							<StyledTableRow key={row.second_sub_category_id}>
 								<StyledTableCell align='center'>
 									{row.third_sub_category_name_en}
@@ -109,7 +109,7 @@ export default function SubCategoryTable3() {
 				<button
 					className='next_btn add__btn'
 					onClick={() => setOffset(Number(offset) + 50)}
-					disabled={subCategoryData3.length >= 50 ? false : true}>
+					disabled={subCategoryData3?.length >= 50 ? false : true}>
 					Next
 				</button>
 			</div>
