@@ -52,9 +52,7 @@ export default function NewsTable() {
 			.then((res) => res.json())
 			.then((data) => setNewData(data.data))
 			.catch((e) => console.log(e));
-	}, []);
-
-	console.log(newData);
+	}, [offset]);
 
 	return (
 		<Box sx={{ p: 3 }}>

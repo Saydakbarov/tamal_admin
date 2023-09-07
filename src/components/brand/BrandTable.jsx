@@ -50,7 +50,7 @@ export default function BrandTable() {
 			.then((res) => res.json())
 			.then((data) => setBrandData(data.data))
 			.catch((e) => console.log(e));
-	}, []);
+	}, [offset]);
 
 	return (
 		<Box sx={{ p: 3 }}>

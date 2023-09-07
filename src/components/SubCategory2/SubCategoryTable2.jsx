@@ -38,21 +38,23 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function SubCategoryTable2() {
-  const [subCategoryData2, setSubCategoryData2] = useState([]);
-
+  const [subCategoryData1, setSubCategoryData1] = useState([]);
   const [updateCategory, setUpdateCategory] = useState([]);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/secondsubcategories", {
-      method: "GET",
-      headers: {},
-    })
+    fetch(
+      "https://tamal.onrender.com/api/v1/secondsubcategories?limit=20&offset=" +
+        offset,
+      {
+        method: "GET",
+        headers: {},
+      }
+    )
       .then((res) => res.json())
-      .then((data) => setSubCategoryData2(data.data))
+      .then((data) => setSubCategoryData1(data.data))
       .catch((e) => console.log(e));
-  }, []);
-
-  console.log(subCategoryData2);
+  }, [offset]);
 
   return (
     <Box sx={{ p: 3 }}>
@@ -70,7 +72,7 @@ export default function SubCategoryTable2() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {subCategoryData2?.map((row, i) => (
+            {subCategoryData1?.map((row, i) => (
               <StyledTableRow key={row.second_sub_category_id}>
                 <StyledTableCell align="center">
                   {row.sub_category_name_ru}
@@ -101,6 +103,23 @@ export default function SubCategoryTable2() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <div className="pagination__btnbox">
+        <button
+          className="prev_btn add__btn"
+          onClick={() => setOffset(Number(offset) - 50)}
+          disabled={offset === 0 ? true : false}
+        >
+          Prev
+        </button>
+        <button
+          className="next_btn add__btn"
+          onClick={() => setOffset(Number(offset) + 50)}
+          disabled={subCategoryData1?.length >= 50 ? false : true}
+        >
+          Next
+        </button>
+      </div>
 
       <AddSubCategory1 />
     </Box>

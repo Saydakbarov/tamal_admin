@@ -39,20 +39,22 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function SubCategoryTable1() {
   const [subCategoryData1, setSubCategoryData1] = useState([]);
-
   const [updateCategory, setUpdateCategory] = useState([]);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/subcategories/", {
-      method: "GET",
-      headers: {},
-    })
+    fetch(
+      "https://tamal.onrender.com/api/v1/subcategories?limit=20&offset=" +
+        offset,
+      {
+        method: "GET",
+        headers: {},
+      }
+    )
       .then((res) => res.json())
       .then((data) => setSubCategoryData1(data.data))
       .catch((e) => console.log(e));
-  }, []);
-
-  console.log(subCategoryData1);
+  }, [offset]);
 
   return (
     <Box sx={{ p: 3 }}>
@@ -99,6 +101,23 @@ export default function SubCategoryTable1() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <div className="pagination__btnbox">
+        <button
+          className="prev_btn add__btn"
+          onClick={() => setOffset(Number(offset) - 20)}
+          disabled={offset === 0 ? true : false}
+        >
+          Prev
+        </button>
+        <button
+          className="next_btn add__btn"
+          onClick={() => setOffset(Number(offset) + 20)}
+          disabled={subCategoryData1?.length >= 20 ? false : true}
+        >
+          Next
+        </button>
+      </div>
 
       <AddSubCategory1 />
     </Box>

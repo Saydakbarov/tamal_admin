@@ -39,18 +39,22 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function SubCategoryTable3() {
   const [subCategoryData3, setSubCategoryData3] = useState([]);
-
   const [updateCategory, setUpdateCategory] = useState([]);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/thirdsubcategories", {
-      method: "GET",
-      headers: {},
-    })
+    fetch(
+      "https://tamal.onrender.com/api/v1/thirdsubcategories?limit=20&offset=" +
+        offset,
+      {
+        method: "GET",
+        headers: {},
+      }
+    )
       .then((res) => res.json())
       .then((data) => setSubCategoryData3(data.data))
       .catch((e) => console.log(e));
-  }, []);
+  }, [offset]);
 
   console.log(subCategoryData3);
 
@@ -60,6 +64,9 @@ export default function SubCategoryTable3() {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
+              <StyledTableCell align="center">
+                Second Sub Category Title
+              </StyledTableCell>
               <StyledTableCell align="center">English</StyledTableCell>
               <StyledTableCell align="center">Russian</StyledTableCell>
               <StyledTableCell align="center">Uzbek</StyledTableCell>
@@ -67,8 +74,11 @@ export default function SubCategoryTable3() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {subCategoryData3?git.map((row, i) => (
+            {subCategoryData3?.map((row, i) => (
               <StyledTableRow key={row.second_sub_category_id}>
+                <StyledTableCell align="center">
+                  {row.second_sub_category_name_en}
+                </StyledTableCell>
                 <StyledTableCell align="center">
                   {row.third_sub_category_name_en}
                 </StyledTableCell>
@@ -95,6 +105,23 @@ export default function SubCategoryTable3() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <div className="pagination__btnbox">
+        <button
+          className="prev_btn add__btn"
+          onClick={() => setOffset(Number(offset) - 50)}
+          disabled={offset === 0 ? true : false}
+        >
+          Prev
+        </button>
+        <button
+          className="next_btn add__btn"
+          onClick={() => setOffset(Number(offset) + 50)}
+          disabled={subCategoryData3?.length >= 50 ? false : true}
+        >
+          Next
+        </button>
+      </div>
 
       <AddSubCategory1 />
     </Box>
