@@ -55,9 +55,7 @@ export default function ProductTable() {
 			.then((res) => res.json())
 			.then((data) => setProductData(data.data))
 			.catch((e) => console.log(e));
-	}, []);
-
-	console.log(productData);
+	}, [offset]);
 
 	return (
 		<Box sx={{ p: 3 }}>
