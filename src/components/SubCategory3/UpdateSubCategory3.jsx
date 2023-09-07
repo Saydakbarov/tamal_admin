@@ -1,162 +1,258 @@
-import { Edit } from "@mui/icons-material";
+import { Edit } from '@mui/icons-material';
 import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Modal,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
+	Box,
+	Button,
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Modal,
+	Select,
+	TextField,
+	Typography,
+} from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 500,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 500,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
 };
 
 export default function UpdateSubCategory3({ data }) {
-  const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => setOpen(true);
+	const handleOpen = () => setOpen(true);
 
-  const handleClose = () => setOpen(false);
+	const handleClose = () => setOpen(false);
+	// Select State Start
+	const [age, setAge] = React.useState('');
 
-  const [selectId, setSelectId] = useState();
+	const handleChangeCategory = (event) => {
+		setAge(event.target.value);
+	};
 
-  console.log(selectId);
+	// Select Category End
 
-  // Select State Start
+	// Select First Sub Category Start
 
-  const [age, setAge] = React.useState("");
+	const [firstSelectSub, setFirstSelectSub] = React.useState('');
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+	const handleFirstSub = (event) => {
+		setFirstSelectSub(event.target.value);
+	};
 
-  // Select State End
+	// Select First Sub Category End
 
-  const [categoryData, setCategoryData] = useState([]);
+	// Select Second Sub Category Start
 
-  useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/secondsubcategories", {
-      method: "GET",
-      headers: {},
-    })
-      .then((res) => res.json())
-      .then((data) => setCategoryData(data.data))
-      .catch((e) => console.log(e));
-  }, []);
+	const [secondSubSelect, setSecondSubSelect] = React.useState('');
 
-  console.log(selectId);
+	const handleSecondSub = (event) => {
+		setSecondSubSelect(event.target.value);
+	};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+	const [categoryid, setCategoryId] = useState(1);
 
-    const { category_en, category_ru, category_uz } = e.target.elements;
+	console.log(age);
 
-    fetch("https://tamal.onrender.com/api/v1/thirdsubcategory/update", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        second_sub_category_id: selectId,
-        id: data.third_sub_category_id,
-        sub_category_uz: category_uz.value,
-        sub_category_ru: category_ru.value,
-        sub_category_en: category_en.value,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data), handleClose())
-      .catch((e) => console.log(e));
+	// Category Data start
+	const [categoryData, setCategoryData] = useState([]);
 
-    //
-  };
+	useEffect(() => {
+		fetch('https://tamal.onrender.com/api/v1/categories', {
+			method: 'GET',
+			headers: {},
+		})
+			.then((res) => res.json())
+			.then((data) => setCategoryData(data.data))
+			.catch((e) => console.log(e));
+	}, []);
+	// Category Data end
 
-  return (
-    <Box sx={{}}>
-      <Button variant="contained" color="warning" onClick={handleOpen}>
-        <Edit />
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Update Category
-          </Typography>
+	// First SubCategory start
+	const [subCategory1Data, setSubCategory1Data] = useState([]);
+	const [subCategoryId1, setSubCategoryId1] = useState(1);
+	useEffect(() => {
+		fetch('https://tamal.onrender.com/api/v1/subcategories/' + categoryid, {
+			method: 'GET',
+			headers: {},
+		})
+			.then((res) => res.json())
+			.then((data) => setSubCategory1Data(data.data))
+			.catch((e) => console.log(e));
+	}, [categoryid]);
+	// First SubCategory end
 
-          <Box component={"form"} onSubmit={handleSubmit}>
-            <FormControl fullWidth sx={{ mt: 3 }}>
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                defaultValue="Металлопрокат"
-                onChange={handleChange}
-              >
-                {categoryData.map((v, i) => (
-                  <MenuItem
-                    key={v.second_sub_category_id}
-                    onClick={() => setSelectId(v.second_sub_category_id)}
-                    value={v.second_sub_category_name_ru}
-                  >
-                    {v.second_sub_category_name_ru}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <TextField
-              required
-              fullWidth
-              defaultValue={data.third_sub_category_name_en}
-              name="category_en"
-              id="filled-basic"
-              label="Category_En"
-              variant="filled"
-              sx={{ mt: 2 }}
-            />
-            <TextField
-              name="category_ru"
-              defaultValue={data.third_sub_category_name_ru}
-              fullWidth
-              id="filled-basic"
-              label="Category_Ru"
-              variant="filled"
-              sx={{ mt: 2 }}
-              required
-            />
-            <TextField
-              name="category_uz"
-              defaultValue={data.third_sub_category_name_uz}
-              fullWidth
-              id="filled-basic"
-              label="Category_Uz"
-              variant="filled"
-              sx={{ mt: 2 }}
-              required
-            />
-            <Button variant="contained" sx={{ mt: 2 }} type="submit">
-              Update Category
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
-    </Box>
-  );
+	// Second Sub Category  start
+	const [secondSubCategory2Data, setSecondSubCategory2Data] = useState([]);
+	const [secondSubCategoryId, setSecondSubCategoryId] = useState(1);
+	useEffect(() => {
+		fetch(
+			'https://tamal.onrender.com/api/v1/secondsubcategories/' +
+				subCategoryId1,
+			{
+				method: 'GET',
+				headers: {},
+			},
+		)
+			.then((res) => res.json())
+			.then((data) => setSecondSubCategory2Data(data.data))
+			.catch((e) => console.log(e));
+	}, [subCategoryId1]);
+	// Second Sub Category end
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		const { category_en, category_ru, category_uz } = e.target.elements;
+
+		fetch('https://tamal.onrender.com/api/v1/thirdsubcategory/update', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				second_sub_category_id: secondSubCategoryId,
+				id: data.third_sub_category_id,
+				sub_category_uz: category_uz.value,
+				sub_category_ru: category_ru.value,
+				sub_category_en: category_en.value,
+			}),
+		})
+			.then((res) => res.json())
+			.then((data) => console.log(data), handleClose())
+			.catch((e) => console.log(e));
+
+		//
+	};
+
+	return (
+		<Box sx={{}}>
+			<Button variant='contained' color='warning' onClick={handleOpen}>
+				<Edit />
+			</Button>
+			<Modal
+				open={open}
+				onClose={handleClose}
+				aria-labelledby='modal-modal-title'
+				aria-describedby='modal-modal-description'>
+				<Box sx={style}>
+					<Typography id='modal-modal-title' variant='h6' component='h2'>
+						Update Category
+					</Typography>
+
+					<Box component={'form'} onSubmit={handleSubmit}>
+						<FormControl fullWidth sx={{ mt: 2 }}>
+							<InputLabel id='demo-simple-select-label'>
+								Category
+							</InputLabel>
+							<Select
+								labelId='demo-simple-select-label'
+								id='demo-simple-select'
+								value={age}
+								onChange={handleChangeCategory}
+								fullWidth>
+								{categoryData.map((v, i) => (
+									<MenuItem
+										key={v.category_id}
+										onClick={() => setCategoryId(v.category_id)}
+										value={v.category_name_ru}>
+										{v.category_name_ru}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+
+						<FormControl fullWidth sx={{ mt: 2 }}>
+							<InputLabel id='demo-simple-select-label'>
+								Sub Category 1
+							</InputLabel>
+							<Select
+								labelId='demo-simple-select-label'
+								id='demo-simple-select'
+								value={firstSelectSub}
+								onChange={handleFirstSub}
+								fullWidth>
+								{subCategory1Data.map((v, i) => (
+									<MenuItem
+										key={v.category_id}
+										onClick={() =>
+											setSubCategoryId1(v.sub_category_id)
+										}
+										value={v.sub_category_name_ru}>
+										{v.sub_category_name_ru}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+
+						<FormControl fullWidth sx={{ mt: 2 }}>
+							<InputLabel id='demo-simple-select-label'>
+								Sub Category 2
+							</InputLabel>
+							<Select
+								labelId='demo-simple-select-label'
+								id='demo-simple-select'
+								value={secondSubSelect}
+								onChange={handleSecondSub}
+								fullWidth>
+								{secondSubCategory2Data.map((v, i) => (
+									<MenuItem
+										key={v.category_id}
+										onClick={() =>
+											setSecondSubCategoryId(
+												v.second_sub_category_id,
+											)
+										}
+										value={v.second_sub_category_name_ru}>
+										{v.second_sub_category_name_ru}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+
+						<TextField
+							required
+							fullWidth
+							defaultValue={data.third_sub_category_name_en}
+							name='category_en'
+							id='filled-basic'
+							label='Category_En'
+							variant='filled'
+							sx={{ mt: 2 }}
+						/>
+						<TextField
+							name='category_ru'
+							defaultValue={data.third_sub_category_name_ru}
+							fullWidth
+							id='filled-basic'
+							label='Category_Ru'
+							variant='filled'
+							sx={{ mt: 2 }}
+							required
+						/>
+						<TextField
+							name='category_uz'
+							defaultValue={data.third_sub_category_name_uz}
+							fullWidth
+							id='filled-basic'
+							label='Category_Uz'
+							variant='filled'
+							sx={{ mt: 2 }}
+							required
+						/>
+						<Button variant='contained' sx={{ mt: 2 }} type='submit'>
+							Update Category
+						</Button>
+					</Box>
+				</Box>
+			</Modal>
+		</Box>
+	);
 }
