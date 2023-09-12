@@ -13,6 +13,7 @@ import { Delete, Edit } from "@mui/icons-material";
 import AddSubCategory1 from "./AddSubCategory3";
 import UpdateSubCategory3 from "./UpdateSubCategory3";
 import DeleteSubCategory3 from "./DeleteSubCategory3";
+import BASE_URl from "../../Server";
 // import ModalCategory from "./ModalCategory";
 // import UpdateCategory from "./UpdateCategory";
 // import DeleteCategory from "./DeleteCategory";
@@ -43,14 +44,10 @@ export default function SubCategoryTable3() {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    fetch(
-      "https://tamal.onrender.com/api/v1/thirdsubcategories?limit=20&offset=" +
-        offset,
-      {
-        method: "GET",
-        headers: {},
-      }
-    )
+    fetch(`${BASE_URl}api/v1/thirdsubcategories?limit=20&offset=` + offset, {
+      method: "GET",
+      headers: {},
+    })
       .then((res) => res.json())
       .then((data) => setSubCategoryData3(data.data))
       .catch((e) => console.log(e));

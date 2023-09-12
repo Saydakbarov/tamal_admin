@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import BASE_URl from "../../Server";
 
 const style = {
   position: "absolute",
@@ -47,8 +48,9 @@ export default function UpdateSubCategory({ data }) {
 
   // Select State End
 
+
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/categories", {
+    fetch(`${BASE_URl}api/v1/categories`, {
       method: "GET",
       headers: {},
     })
@@ -62,7 +64,9 @@ export default function UpdateSubCategory({ data }) {
 
     const { category_en, category_ru, category_uz } = e.target.elements;
 
-    fetch("https://tamal.onrender.com/api/v1/subcategory/update", {
+    
+
+    fetch(`${BASE_URl}api/v1/subcategory/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

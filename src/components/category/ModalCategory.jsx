@@ -1,5 +1,6 @@
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import React from "react";
+import BASE_URl from "../../Server";
 
 const style = {
   position: "absolute",
@@ -19,12 +20,12 @@ export default function ModalCategory() {
   const handleOpen = () => setOpen(true);
 
   const handleClose = () => setOpen(false);
-
+  // https://tamal.onrender.com/
   const handleSubmit = (e) => {
     e.preventDefault();
     const { category_en, category_ru, category_uz } = e.target.elements;
 
-    fetch("https://tamal.onrender.com/api/v1/category/add", {
+    fetch(`${BASE_URl}api/v1/category/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

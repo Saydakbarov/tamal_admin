@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import BASE_URl from "../../Server";
 
 const style = {
   position: "absolute",
@@ -53,8 +54,9 @@ export default function AddBrand() {
 
   console.log(age);
 
+
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/brands?limit=100&offset=0", {
+    fetch(`${BASE_URl}api/v1/brands?limit=100&offset=0`, {
       method: "GET",
       headers: {},
     })
@@ -74,7 +76,7 @@ export default function AddBrand() {
     console.log(brand.value, img.files[0].name);
 
     axios
-      .post("https://tamal.onrender.com/api/v1/brand/add", formData, {
+      .post(`${BASE_URl}api/v1/brand/add`, formData, {
         headers: {
           "Content-Type": "form-data",
           "type": "formData",

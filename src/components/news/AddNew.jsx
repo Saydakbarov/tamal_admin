@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import BASE_URl from "../../Server";
 
 const style = {
   position: "absolute",
@@ -37,10 +38,6 @@ export default function AddNew() {
 
   // Select State Start
 
-
-
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const {
@@ -63,7 +60,7 @@ export default function AddNew() {
     formData.append("photo", img?.files[0]);
 
     axios
-      .post("https://tamal.onrender.com/api/v1/news/add", formData, {
+      .post(`${BASE_URl}api/v1/news/add`, formData, {
         headers: {
           "Content-Type": "form-data",
           type: "formData",

@@ -19,6 +19,8 @@ export default function AllDescriptionNews({ data }) {
 
   const handleOpen = () => setOpen(true);
 
+  console.log(data);
+
   const handleClose = () => setOpen(false);
   return (
     <Box>

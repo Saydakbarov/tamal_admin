@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import BASE_URl from "../../Server";
 
 const style = {
   position: "absolute",
@@ -100,7 +101,7 @@ export default function UpdateProduct({ data }) {
   const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/categories", {
+    fetch(`${BASE_URl}api/v1/categories`, {
       method: "GET",
       headers: {},
     })
@@ -114,7 +115,7 @@ export default function UpdateProduct({ data }) {
   const [subCategory1Data, setSubCategory1Data] = useState([]);
   const [subCategoryId1, setSubCategoryId1] = useState();
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/subcategories/", {
+    fetch(`${BASE_URl}api/v1/subcategories/`, {
       method: "GET",
       headers: {},
     })
@@ -128,7 +129,7 @@ export default function UpdateProduct({ data }) {
   const [secondSubCategory2Data, setSecondSubCategory2Data] = useState([]);
   const [secondSubCategoryId, setSecondSubCategoryId] = useState();
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/secondsubcategories", {
+    fetch(`${BASE_URl}api/v1/secondsubcategories`, {
       method: "GET",
       headers: {},
     })
@@ -143,7 +144,7 @@ export default function UpdateProduct({ data }) {
   const [thirdSubCategoryData, setthirdSubCategoryData] = useState([]);
   const [thirdSubCategoryId, setThirdSubCategoryId] = useState();
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/thirdsubcategories", {
+    fetch(`${BASE_URl}api/v1/thirdsubcategories`, {
       method: "GET",
       headers: {},
     })
@@ -158,7 +159,7 @@ export default function UpdateProduct({ data }) {
   const [brandData, setBrandData] = useState([]);
   const [brandId, setBrandId] = useState();
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/brands?limit=100&offset=0", {
+    fetch(`${BASE_URl}api/v1/brands?limit=100&offset=0`, {
       method: "GET",
       headers: {},
     })
@@ -220,7 +221,7 @@ export default function UpdateProduct({ data }) {
     formData.append("id", data.product_id);
 
     axios
-      .put("https://tamal.onrender.com/api/v1/product/update", formData, {
+      .put(`${BASE_URl}api/v1/product/update`, formData, {
         headers: {
           "Content-Type": "form-data",
           type: "formData",

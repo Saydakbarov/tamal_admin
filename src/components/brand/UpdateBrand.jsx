@@ -2,6 +2,7 @@ import { Edit } from "@mui/icons-material";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
+import BASE_URl from "../../Server";
 
 const style = {
   position: "absolute",
@@ -33,9 +34,8 @@ export default function UpdateBrand({ data }) {
     formData.append("photo", photo?.files[0]);
     formData.append("id", data.brand_id);
     formData.append("brand_name", brand_name.value);
-
     axios
-      .put("https://tamal.onrender.com/api/v1/brand/update", formData, {
+      .put(`${BASE_URl}api/v1/brand/update`, formData, {
         headers: {
           "Content-Type": "form-data",
           type: "formData",

@@ -1,6 +1,7 @@
 import { Edit } from "@mui/icons-material";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import BASE_URl from "../../Server";
 
 const style = {
   position: "absolute",
@@ -28,7 +29,7 @@ export default function UpdateCategory({ data }) {
 
     const { category_en, category_ru, category_uz } = e.target.elements;
 
-    fetch("https://tamal.onrender.com/api/v1/category/update", {
+    fetch(`${BASE_URl}api/v1/category/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

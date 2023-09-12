@@ -13,6 +13,7 @@ import { Delete, Edit } from "@mui/icons-material";
 import ModalCategory from "./ModalCategory";
 import UpdateCategory from "./UpdateCategory";
 import DeleteCategory from "./DeleteCategory";
+import BASE_URl from "../../Server";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,12 +36,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function CategoryTable() {
-  const [cetegoryData, setCategoryData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
 
   const [upDateData, setUpdateData] = useState([]);
+  // https://tamal.onrender.com/
 
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/categories", {
+    fetch(`${BASE_URl}api/v1/categories`, {
       method: "GET",
       headers: {},
     })
@@ -49,7 +51,7 @@ export default function CategoryTable() {
       .catch((e) => console.log(e));
   }, []);
 
-  // Delete Category
+  console.log(categoryData);
 
   return (
     <Box sx={{ p: 3 }}>
@@ -65,7 +67,7 @@ export default function CategoryTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cetegoryData.map((row, i) => (
+            {categoryData?.map((row, i) => (
               <StyledTableRow key={row.category_id}>
                 <StyledTableCell align="center">
                   {row.category_id}

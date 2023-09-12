@@ -1,6 +1,7 @@
 import { Delete } from "@mui/icons-material";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import BASE_URl from "../../Server";
 
 const style = {
   position: "absolute",
@@ -21,9 +22,10 @@ export default function DeleteSubCategory2({ id }) {
 
   const handleClose = () => setOpen(false);
 
+
   const deleteFunc = () => {
     const { second_sub_category_id } = id;
-    fetch("https://tamal.onrender.com/api/v1/secondsubcategory/delete", {
+    fetch(`${BASE_URl}api/v1/secondsubcategory/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

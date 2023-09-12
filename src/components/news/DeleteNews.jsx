@@ -2,6 +2,7 @@ import { Delete } from "@mui/icons-material";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
+import BASE_URl from "../../Server";
 
 const style = {
   position: "absolute",
@@ -26,7 +27,7 @@ export default function DeleteNews({ id }) {
   const deleteFunc = () => {
     const { new_id } = id;
 
-    fetch("https://tamal.onrender.com/api/v1/news/delete", {
+    fetch(`${BASE_URl}api/v1/news/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

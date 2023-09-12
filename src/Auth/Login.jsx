@@ -3,6 +3,7 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import BASE_URl from '../Server';
 
 export default function Login() {
 	const handleSubmit = (e) => {
@@ -11,7 +12,7 @@ export default function Login() {
 		// setPassword(password);
 		e.preventDefault();
 
-		fetch('https://tamal.onrender.com/api/v1/admin/login', {
+		fetch(`${BASE_URl}api/v1/admin/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
