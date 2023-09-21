@@ -141,7 +141,7 @@ export default function AddProduct({ data }) {
   // Third Sub Category start
 
   const [thirdSubCategoryData, setthirdSubCategoryData] = useState([]);
-  const [thirdSubCategoryId, setThirdSubCategoryId] = useState([1]);
+  const [thirdSubCategoryId, setThirdSubCategoryId] = useState(0);
   useEffect(() => {
     fetch(`${BASE_URl}api/v1/thirdsubcategories/` + secondSubCategoryId, {
       method: "GET",
@@ -164,7 +164,7 @@ export default function AddProduct({ data }) {
       headers: {},
     })
       .then((res) => res.json())
-      .then((data) => setBrandData(data.data))
+      .then((data) => setBrandData(data.data), handleClose())
       .catch((e) => console.log(e));
   }, []);
   // Brand end
@@ -226,7 +226,7 @@ export default function AddProduct({ data }) {
           "Access-Control-Allow-Origin": "*",
         },
       })
-      .then((res) => console.log(res.data))
+      .then((res) => console.log(res.data), handleClose(  ))
       .catch((error) => console.log(error));
   };
 

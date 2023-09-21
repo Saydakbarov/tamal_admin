@@ -68,7 +68,7 @@ export default function AddNew() {
           "Access-Control-Allow-Origin": "*",
         },
       })
-      .then((res) => console.log(res.data))
+      .then((res) => console.log(res.data), handleClose())
       .catch((error) => console.log(error));
   };
   return (

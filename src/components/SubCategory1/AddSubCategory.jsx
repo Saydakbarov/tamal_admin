@@ -63,7 +63,7 @@ export default function AddSubCategory1() {
     e.preventDefault();
     const { category_en, category_ru, category_uz } = e.target.elements;
 
-    fetch("https://tamal.onrender.com/api/v1/subcategory/add", {
+    fetch(`${BASE_URl}api/v1/subcategory/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

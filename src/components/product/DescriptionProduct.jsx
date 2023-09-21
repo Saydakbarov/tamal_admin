@@ -12,6 +12,11 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  overflowX: "scroll",
+  height: "100vh",
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
 };
 
 export default function DescriptionProduct({ data }) {
@@ -254,7 +259,7 @@ export default function DescriptionProduct({ data }) {
             </Box>
           </Box>
 
-          <Box sx={{ textAlign: "end", mt: 3 }}>
+          <Box sx={{ textAlign: "end", mt: 3, pb: 4 }}>
             <Button
               sx={{ textAlign: "end" }}
               variant="contained"

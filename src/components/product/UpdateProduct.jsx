@@ -159,7 +159,7 @@ export default function UpdateProduct({ data }) {
   const [brandData, setBrandData] = useState([]);
   const [brandId, setBrandId] = useState();
   useEffect(() => {
-    fetch(`${BASE_URl}api/v1/brands?limit=100&offset=0`, {
+    fetch(`${BASE_URl}api/v1/brands?limit=5&offset=0`, {
       method: "GET",
       headers: {},
     })
@@ -214,10 +214,10 @@ export default function UpdateProduct({ data }) {
       formData.append("photos", img.files[i]);
     }
     formData.append("brand_id", brandId);
-    formData.append("category_id", categoryid);
-    formData.append("sub_category_id", subCategoryId1);
-    formData.append("second_sub_category_id", secondSubCategoryId);
-    formData.append("third_sub_category_id", thirdSubCategoryId);
+    formData.append("category_id", data.category_id);
+    formData.append("sub_category_id", data.sub_category_id);
+    formData.append("second_sub_category_id", data.second_sub_category_id);
+    formData.append("third_sub_category_id", data.third_sub_category_id);
     formData.append("id", data.product_id);
 
     axios
@@ -229,7 +229,7 @@ export default function UpdateProduct({ data }) {
           "Access-Control-Allow-Origin": "*",
         },
       })
-      .then((res) => console.log(res.request))
+      .then((res) => console.log(res.request), handleClose())
       .catch((error) => console.log(error));
   };
 
@@ -529,6 +529,8 @@ export default function UpdateProduct({ data }) {
                   value={brandSub}
                   onChange={handleBrandSub}
                   fullWidth
+                  required
+                  
                 >
                   {brandData.map((v, i) => (
                     <MenuItem
@@ -544,7 +546,6 @@ export default function UpdateProduct({ data }) {
             </Box>
 
             <TextField
-              required
               fullWidth
               name="img"
               id="filled-basic"

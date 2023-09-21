@@ -126,7 +126,7 @@ export default function AddSubCategory3() {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => console.log(data), handleClose())
       .catch((e) => console.log(e));
   };
   return (

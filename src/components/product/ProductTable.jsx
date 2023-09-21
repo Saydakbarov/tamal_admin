@@ -46,7 +46,7 @@ export default function ProductTable() {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    fetch(`${BASE_URl}api/v1/products?limit=50&offset=` + offset, {
+    fetch(`${BASE_URl}api/v1/products?limit=5&offset=` + offset, {
       method: "GET",
       headers: {},
     })
@@ -55,6 +55,8 @@ export default function ProductTable() {
       .catch((e) => console.log(e));
   }, [offset]);
 
+  console.log(productData);
+
   return (
     <Box sx={{ p: 3 }}>
       <TableContainer component={Paper}>
@@ -62,6 +64,7 @@ export default function ProductTable() {
           <TableHead>
             <TableRow>
               <StyledTableCell align="center">#</StyledTableCell>
+              <StyledTableCell align="center">Category Title</StyledTableCell>
               <StyledTableCell align="center">Title</StyledTableCell>
               <StyledTableCell align="center">Model</StyledTableCell>
               <StyledTableCell align="center">Description</StyledTableCell>
@@ -71,6 +74,9 @@ export default function ProductTable() {
           <TableBody>
             {productData.map((row, i) => (
               <StyledTableRow key={row.product_id}>
+                <StyledTableCell align="center">
+                  {row.product_id}
+                </StyledTableCell>
                 <StyledTableCell align="center">
                   {row.product_id}
                 </StyledTableCell>
@@ -111,15 +117,15 @@ export default function ProductTable() {
       <div className="pagination__btnbox">
         <button
           className="prev_btn add__btn"
-          onClick={() => setOffset(Number(offset) - 50)}
+          onClick={() => setOffset(Number(offset) - 5)}
           disabled={offset === 0 ? true : false}
         >
           Prev
         </button>
         <button
           className="next_btn add__btn"
-          onClick={() => setOffset(Number(offset) + 50)}
-          disabled={productData.length >= 50 ? false : true}
+          onClick={() => setOffset(Number(offset) + 5)}
+          disabled={productData.length >= 5 ? false : true}
         >
           Next
         </button>
