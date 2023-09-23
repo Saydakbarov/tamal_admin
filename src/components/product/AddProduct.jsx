@@ -1,10 +1,14 @@
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
+  FormGroup,
   InputLabel,
   MenuItem,
   Modal,
+  Rating,
   Select,
   TextField,
   Typography,
@@ -169,6 +173,12 @@ export default function AddProduct({ data }) {
   }, []);
   // Brand end
 
+  const [ratingValue, setRatingValue] = useState(0);
+
+  const [valyuta, setValyuta] = useState(false);
+
+  console.log(valyuta, ratingValue);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const {
@@ -216,6 +226,8 @@ export default function AddProduct({ data }) {
     formData.append("sub_category_id", subCategoryId1);
     formData.append("second_sub_category_id", secondSubCategoryId);
     formData.append("third_sub_category_id", thirdSubCategoryId);
+    formData.append("product_dollar ", valyuta);
+    formData.append("product_rating ", Number(ratingValue));
 
     axios
       .post(`${BASE_URl}api/v1/product/add`, formData, {
@@ -226,7 +238,7 @@ export default function AddProduct({ data }) {
           "Access-Control-Allow-Origin": "*",
         },
       })
-      .then((res) => console.log(res.data), handleClose(  ))
+      .then((res) => console.log(res.data), handleClose())
       .catch((error) => console.log(error));
   };
 
@@ -538,15 +550,34 @@ export default function AddProduct({ data }) {
               }}
             />
 
-            <TextField
-              required
-              fullWidth
-              name="price"
-              id="filled-basic"
-              label="Price "
-              variant="filled"
-              sx={{ mt: 2 }}
-            />
+            <Box sx={{ display: "flex", gap: "20px", alignItems: "center" }}>
+              <TextField
+                required
+                name="price"
+                id="filled-basic"
+                label="Price "
+                variant="filled"
+                type="number"
+                sx={{ width: "50%", mt: 2 }}
+              />
+
+              <FormGroup onChange={() => setValyuta(!valyuta)}>
+                <FormControlLabel
+                  required
+                  control={<Checkbox />}
+                  label="Dollar"
+                />
+              </FormGroup>
+            </Box>
+
+            <Box>
+              <Rating
+                onChange={(e) => setRatingValue(e.target.value)}
+                name="read-only"
+                value={ratingValue}
+              />
+            </Box>
+
             <Box sx={{ pb: 3 }}>
               <Button variant="contained" sx={{ mt: 2 }} type="submit">
                 Add New

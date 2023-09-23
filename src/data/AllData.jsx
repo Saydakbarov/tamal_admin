@@ -27,4 +27,9 @@ export const MenuData = [
     title: "Product",
     path: "/product",
   },
+
+  {
+    title: "Order",
+    path: "/order",
+  },
 ];

@@ -8,6 +8,7 @@ import SubCategory3 from "./Pages/SubCategory3";
 import Brand from "./Pages/Brand";
 import NewsPage from "./Pages/NewsPage";
 import ProductPage from "./Pages/ProductPage";
+import Order from "./Pages/Order";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -27,6 +28,7 @@ function App() {
               <Route path="/brand" element={<Brand />} />
               <Route path="/news" element={<NewsPage />} />
               <Route path="/product" element={<ProductPage />} />
+              <Route path="/order" element={<Order />} />
             </Route>
           </Routes>
         )}
