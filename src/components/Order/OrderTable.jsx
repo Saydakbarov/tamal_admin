@@ -9,7 +9,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import BASE_URl from "../../Server";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import DeleteOrder from "./DeleteOrder";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,13 +36,15 @@ export default function OrderTable() {
   const [offset, setOffset] = useState(0);
   const [orderData, setOrderData] = useState([]);
 
+  const [id, setId] = useState();
+
   useEffect(() => {
     fetch(`${BASE_URl}api/v1/orders?limit=10&offset=0` + offset, {
       method: "GET",
       headers: {},
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => setOrderData(data.data))
       .catch((e) => console.log(e));
   }, [offset]);
 
@@ -54,16 +57,56 @@ export default function OrderTable() {
           <TableHead>
             <TableRow>
               <StyledTableCell align="center">#</StyledTableCell>
+              <StyledTableCell align="center">Name</StyledTableCell>
               <StyledTableCell align="center">Phone</StyledTableCell>
+              <StyledTableCell align="center">Address</StyledTableCell>
               <StyledTableCell align="center">Delivery</StyledTableCell>
               <StyledTableCell align="center">Time</StyledTableCell>
+              <StyledTableCell align="center">Payment</StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
             </TableRow>
           </TableHead>
+
+          <TableBody>
+            {orderData.map((row, i) => (
+              <StyledTableRow key={row.order_id}>
+                <StyledTableCell align="center">{row.order_id}</StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.order_name}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.order_phone}
+                </StyledTableCell>
+
+                <StyledTableCell align="center">
+                  {row.order_address}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.order_delivery === true ? "true" : "false"}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.order_time}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.order_payment_type}
+                </StyledTableCell>
+                {/* <StyledTableCell align="center">
+                  <Button onClick={() => setDescription(row)}>
+                    <DescriptionProduct data={description} />
+                  </Button>
+                </StyledTableCell> */}
+                <StyledTableCell align="center">
+                  <Button onClick={() => setId(row.order_id)}>
+                    <DeleteOrder id={id} />
+                  </Button>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
 
-      <div className="pagination__btnbox">
+      <div className="pagination__btnbox" style={{ marginTop: "30px" }}>
         <button
           className="prev_btn add__btn"
           onClick={() => setOffset(Number(offset) - 20)}

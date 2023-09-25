@@ -226,8 +226,8 @@ export default function AddProduct({ data }) {
     formData.append("sub_category_id", subCategoryId1);
     formData.append("second_sub_category_id", secondSubCategoryId);
     formData.append("third_sub_category_id", thirdSubCategoryId);
-    formData.append("product_dollar ", valyuta);
-    formData.append("product_rating ", Number(ratingValue));
+    formData.append("product_dollar", valyuta);
+    formData.append("product_rating", Number(ratingValue));
 
     axios
       .post(`${BASE_URl}api/v1/product/add`, formData, {
