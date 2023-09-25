@@ -39,7 +39,7 @@ export default function OrderTable() {
   const [id, setId] = useState();
 
   useEffect(() => {
-    fetch(`${BASE_URl}api/v1/orders?limit=10&offset=0` + offset, {
+    fetch(`${BASE_URl}api/v1/orders?limit=10&offset=${offset}`, {
       method: "GET",
       headers: {},
     })

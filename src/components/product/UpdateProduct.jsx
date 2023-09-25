@@ -2,10 +2,14 @@ import { Edit } from "@mui/icons-material";
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
+  FormGroup,
   InputLabel,
   MenuItem,
   Modal,
+  Rating,
   Select,
   TextField,
   Typography,
@@ -169,6 +173,10 @@ export default function UpdateProduct({ data }) {
   }, []);
   // Brand end
 
+  const [ratingValue, setRatingValue] = useState(0);
+
+  const [valyuta, setValyuta] = useState(false);
+
   const handleSubmit = (e) => {
     console.log(data);
 
@@ -219,6 +227,8 @@ export default function UpdateProduct({ data }) {
     formData.append("second_sub_category_id", data.second_sub_category_id);
     formData.append("third_sub_category_id", data.third_sub_category_id);
     formData.append("id", data.product_id);
+    formData.append("product_dollar", valyuta);
+    formData.append("product_rating", Number(ratingValue));
 
     axios
       .put(`${BASE_URl}api/v1/product/update`, formData, {
@@ -530,7 +540,6 @@ export default function UpdateProduct({ data }) {
                   onChange={handleBrandSub}
                   fullWidth
                   required
-                  
                 >
                   {brandData.map((v, i) => (
                     <MenuItem
@@ -557,15 +566,34 @@ export default function UpdateProduct({ data }) {
               }}
             />
 
-            <TextField
-              required
-              fullWidth
-              name="price"
-              id="filled-basic"
-              label="Price "
-              variant="filled"
-              sx={{ mt: 2 }}
-            />
+            <Box sx={{ display: "flex", gap: "20px", alignItems: "center" }}>
+              <TextField
+                defaultValue={data.product_price}
+                required
+                name="price"
+                id="filled-basic"
+                label="Price "
+                variant="filled"
+                type="number"
+                sx={{ width: "50%", mt: 2 }}
+              />
+
+              <FormGroup onChange={() => setValyuta(!valyuta)}>
+                <FormControlLabel
+                  required
+                  control={<Checkbox />}
+                  label="Dollar"
+                />
+              </FormGroup>
+            </Box>
+
+            <Box>
+              <Rating
+                defaultValue={Number(data.product_rating)}
+                onChange={(e) => setRatingValue(e.target.value)}
+                name="read-only"
+              />
+            </Box>
             <Box sx={{ pb: 3 }}>
               <Button variant="contained" sx={{ mt: 2 }} type="submit">
                 Update
