@@ -9,9 +9,14 @@ import Brand from "./Pages/Brand";
 import NewsPage from "./Pages/NewsPage";
 import ProductPage from "./Pages/ProductPage";
 import Order from "./Pages/Order";
+import { useState } from "react";
 
 function App() {
   const token = localStorage.getItem("token");
+
+  const [lang, setLang] = useState(
+    JSON.parse(window.localStorage.getItem("lang")) || "ru"
+  );
 
   return (
     <div className="App">
@@ -20,15 +25,42 @@ function App() {
           <Login />
         ) : (
           <Routes>
-            <Route path="/" element={<Dashboard />}>
-              <Route path="/" element={<CategoryPage />} />
-              <Route path="/subcategory1" element={<SubCategory1 />} />
-              <Route path="/subcategory2" element={<SubCategory2 />} />
-              <Route path="/subcategory3" element={<SubCategory3 />} />
-              <Route path="/brand" element={<Brand />} />
-              <Route path="/news" element={<NewsPage />} />
-              <Route path="/product" element={<ProductPage />} />
-              <Route path="/order" element={<Order />} />
+            <Route
+              path="/"
+              element={<Dashboard lang={lang} setLang={setLang} />}
+            >
+              <Route
+                path="/"
+                element={<CategoryPage lang={lang} setLang={setLang} />}
+              />
+              <Route
+                path="/subcategory1"
+                element={<SubCategory1 lang={lang} setLang={setLang} />}
+              />
+              <Route
+                path="/subcategory2"
+                element={<SubCategory2 lang={lang} setLang={setLang} />}
+              />
+              <Route
+                path="/subcategory3"
+                element={<SubCategory3 lang={lang} setLang={setLang} />}
+              />
+              <Route
+                path="/brand"
+                element={<Brand lang={lang} setLang={setLang} />}
+              />
+              <Route
+                path="/news"
+                element={<NewsPage lang={lang} setLang={setLang} />}
+              />
+              <Route
+                path="/product"
+                element={<ProductPage lang={lang} setLang={setLang} />}
+              />
+              <Route
+                path="/order"
+                element={<Order lang={lang} setLang={setLang} />}
+              />
             </Route>
           </Routes>
         )}

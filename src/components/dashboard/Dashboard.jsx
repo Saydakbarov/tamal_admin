@@ -11,11 +11,11 @@ import {
 } from "@mui/material";
 import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import DrawerComp from "../Drawer/DrawerComp";
-import { MenuData } from "../../data/AllData";
 
 import TamalLogo from "../../tamalLogo.png";
+import { content } from "../Localizations/content";
 
-export default function Dashboard() {
+export default function Dashboard({ lang, setLang }) {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
   // List Item Style
@@ -43,7 +43,7 @@ export default function Dashboard() {
 
           <Box textAlign={"center"}></Box>
           <List sx={{ mt: 1 }}>
-            {MenuData.map((v, i) => (
+            {content[lang].header.links.map((v, i) => (
               <ListItem
                 key={i}
                 sx={{
@@ -66,8 +66,6 @@ export default function Dashboard() {
               </ListItem>
             ))}
           </List>
-
-      
         </Box>
       )}
 

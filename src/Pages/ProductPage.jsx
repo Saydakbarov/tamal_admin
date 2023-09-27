@@ -3,10 +3,10 @@ import React from "react";
 import Header from "../components/header/Header";
 import ProductTable from "../components/product/ProductTable";
 
-export default function ProductPage() {
+export default function ProductPage({ lang, setLang }) {
   return (
     <Box>
-      <Header />
+      <Header lang={lang} setLang={setLang} />
       <ProductTable />
     </Box>
   );

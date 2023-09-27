@@ -199,8 +199,11 @@ export default function AddProduct({ data }) {
       attention_ru,
       price,
       img,
+      manufacturer,
     } = e.target.elements;
     const formData = new FormData();
+
+    console.log(manufacturer.value);
 
     formData.append("product_title_uz", title_uz?.value);
     formData.append("product_title_en", title_en.value);
@@ -228,6 +231,7 @@ export default function AddProduct({ data }) {
     formData.append("third_sub_category_id", thirdSubCategoryId);
     formData.append("product_dollar", valyuta);
     formData.append("product_rating", Number(ratingValue));
+    formData.append("product_manufacturer", manufacturer.value);
 
     axios
       .post(`${BASE_URl}api/v1/product/add`, formData, {
@@ -548,6 +552,16 @@ export default function AddProduct({ data }) {
               inputProps={{
                 multiple: true,
               }}
+            />
+
+            <TextField
+              required
+              fullWidth
+              name="manufacturer"
+              id="filled-basic"
+              variant="filled"
+              label="Manufacturer"
+              sx={{ mt: 2 }}
             />
 
             <Box sx={{ display: "flex", gap: "20px", alignItems: "center" }}>

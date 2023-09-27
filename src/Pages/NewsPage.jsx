@@ -3,10 +3,10 @@ import React from "react";
 import Header from "../components/header/Header";
 import NewsTable from "../components/news/NewsTable";
 
-export default function NewsPage() {
+export default function NewsPage({ lang, setLang }) {
   return (
     <Box>
-      <Header />
+      <Header lang={lang} setLang={setLang} />
       <NewsTable />
     </Box>
   );

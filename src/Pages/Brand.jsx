@@ -3,10 +3,10 @@ import React from "react";
 import Header from "../components/header/Header";
 import BrandTable from "../components/brand/BrandTable";
 
-export default function Brand() {
+export default function Brand({lang, setLang}) {
   return (
     <Box>
-      <Header />
+      <Header lang={lang} setLang={setLang} />
       <BrandTable />
     </Box>
   );

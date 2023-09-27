@@ -34,7 +34,9 @@ export default function DeleteOrder({ id }) {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data), window.location.reload())
+      .then((data) => {
+        data?.status === 200 ? window.location.reload() : console.log(data);
+      })
       .catch((e) => console.log(e));
   };
   return (

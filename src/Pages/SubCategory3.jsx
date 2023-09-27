@@ -3,10 +3,10 @@ import React from "react";
 import Header from "../components/header/Header";
 import SubCategoryTable3 from "../components/SubCategory3/SubCategoryTable3";
 
-export default function SubCategory3() {
+export default function SubCategory3({ lang, setLang }) {
   return (
     <Box>
-      <Header />
+      <Header lang={lang} setLang={setLang} />
       <Typography sx={{ fontSize: "30px", ml: 3, mt: 3 }}>
         SubCategory3
       </Typography>

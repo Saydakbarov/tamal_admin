@@ -11,6 +11,7 @@ import Paper from "@mui/material/Paper";
 import BASE_URl from "../../Server";
 import { Box, Button } from "@mui/material";
 import DeleteOrder from "./DeleteOrder";
+import OrderProduct from "./OrderProduct";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,11 +33,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function OrderTable() {
+export default function OrderTable({ lang }) {
   const [offset, setOffset] = useState(0);
   const [orderData, setOrderData] = useState([]);
 
   const [id, setId] = useState();
+
+  const [description, setDescription] = useState([]);
 
   useEffect(() => {
     fetch(`${BASE_URl}api/v1/orders?limit=10&offset=${offset}`, {
@@ -64,6 +67,7 @@ export default function OrderTable() {
               <StyledTableCell align="center">Time</StyledTableCell>
               <StyledTableCell align="center">Payment</StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
+              <StyledTableCell align="center"></StyledTableCell>
             </TableRow>
           </TableHead>
 
@@ -90,11 +94,11 @@ export default function OrderTable() {
                 <StyledTableCell align="center">
                   {row.order_payment_type}
                 </StyledTableCell>
-                {/* <StyledTableCell align="center">
-                  <Button onClick={() => setDescription(row)}>
-                    <DescriptionProduct data={description} />
+                <StyledTableCell align="center">
+                  <Button onClick={() => setDescription(row.order_products)}>
+                    <OrderProduct lang={lang} data={description} />
                   </Button>
-                </StyledTableCell> */}
+                </StyledTableCell>
                 <StyledTableCell align="center">
                   <Button onClick={() => setId(row.order_id)}>
                     <DeleteOrder id={id} />
