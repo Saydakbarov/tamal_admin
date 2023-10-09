@@ -54,7 +54,6 @@ export default function AddBrand() {
 
   console.log(age);
 
-
   useEffect(() => {
     fetch(`${BASE_URl}api/v1/brands?limit=100&offset=0`, {
       method: "GET",
@@ -79,12 +78,12 @@ export default function AddBrand() {
       .post(`${BASE_URl}api/v1/brand/add`, formData, {
         headers: {
           "Content-Type": "form-data",
-          "type": "formData",
-          "Accept": "application/json",
+          type: "formData",
+          Accept: "application/json",
           "Access-Control-Allow-Origin": "*",
         },
       })
-      .then((res) => console.log(res.request), handleClose)
+      .then((res) => console.log(res.request), handleClose())
       .catch((error) => console.log(error));
   };
   return (

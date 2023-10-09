@@ -177,8 +177,6 @@ export default function AddProduct({ data }) {
 
   const [valyuta, setValyuta] = useState(false);
 
-  console.log(valyuta, ratingValue);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const {
@@ -568,19 +566,15 @@ export default function AddProduct({ data }) {
               <TextField
                 required
                 name="price"
-                id="filled-basic"
+                id="debitAmount"
                 label="Price "
                 variant="filled"
-                type="number"
+                type="text"
                 sx={{ width: "50%", mt: 2 }}
               />
 
               <FormGroup onChange={() => setValyuta(!valyuta)}>
-                <FormControlLabel
-                  required
-                  control={<Checkbox />}
-                  label="Dollar"
-                />
+                <FormControlLabel control={<Checkbox />} label="Dollar" />
               </FormGroup>
             </Box>
 

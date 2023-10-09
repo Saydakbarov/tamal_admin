@@ -243,7 +243,7 @@ export default function UpdateProduct({ data }) {
           "Access-Control-Allow-Origin": "*",
         },
       })
-      .then((res) => console.log(res.request), handleClose())
+      .then((res) => console.log(res.data), handleClose())
       .catch((error) => console.log(error));
   };
 
@@ -595,14 +595,17 @@ export default function UpdateProduct({ data }) {
                 id="filled-basic"
                 label="Price "
                 variant="filled"
-                type="number"
+                type="text"
                 sx={{ width: "50%", mt: 2 }}
               />
 
               <FormGroup onChange={() => setValyuta(!valyuta)}>
                 <FormControlLabel
-                  required
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      defaultChecked={data.product_dollar ? true : false}
+                    />
+                  }
                   label="Dollar"
                 />
               </FormGroup>
@@ -610,7 +613,7 @@ export default function UpdateProduct({ data }) {
 
             <Box>
               <Rating
-                defaultValue={Number(data.product_rating)}
+                defaultValue={data.product_rating}
                 onChange={(e) => setRatingValue(e.target.value)}
                 name="read-only"
               />
