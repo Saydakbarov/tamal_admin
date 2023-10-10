@@ -240,7 +240,10 @@ export default function AddProduct({ data }) {
           "Access-Control-Allow-Origin": "*",
         },
       })
-      .then((res) => console.log(res.data), handleClose())
+      .then(
+        (res) => (res.request.status === 200 ? window.location.reload() : null),
+        handleClose()
+      )
       .catch((error) => console.log(error));
   };
 
